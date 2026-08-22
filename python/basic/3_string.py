@@ -1,40 +1,142 @@
-# ! String operation - строки тоже можно складывать, добавлять какой-то контент
-# ! между двумя строками. Но однако есть пару забавный вещей:
-multipleString_01 = 3 * 'abc'               # ? 'abcabcabc'
-multipleString_02 = "a1b2" * 4              # ? 'a1b2a1b2a1b2a1b2'
-multipleString_03 = ('ab' * 2) + ('1213')   # ? 'abab1213'
+# =====================================================
+# ! 1. Конкатенация (сложение) и умножение строк
+# =====================================================
+# ? Строки можно складывать (объединять) и умножать на число
+concat = "Hello" + " " + "World"          # 'Hello World'
+multiple_1 = 3 * 'abc'                    # ? 'abcabcabc'
+multiple_2 = "a1b2" * 4                   # ? 'a1b2a1b2a1b2a1b2'
+multiple_3 = ('ab' * 2) + ('1213')        # ? 'abab1213' (сначала умножение, потом сложение)
 
-# ! Также к любому символу через индекс мы можем обратиться
-txt = 'abcde' # ?, где txt[1] => b, где txt[-1] выведет 'e'
-# ! Мы можем также узнать длину строки
+print("Конкатенация:", concat)
+print("Умножение:", multiple_1, multiple_2, multiple_3)
+
+
+
+# =====================================================
+# ! 2. Индексация и срезы (доступ к символам)
+# =====================================================
+txt = 'abcde'
+# ! Индексы начинаются с 0, отрицательные — с конца
+print("txt[0] =", txt[0])    # 'a'
+print("txt[1] =", txt[1])    # 'b'
+print("txt[-1] =", txt[-1])  # 'e' (последний символ)
+print("txt[-2] =", txt[-2])  # 'd'
+
+# ! Срезы [start:stop:step] — возвращают подстроку
+print("txt[1:4] =", txt[1:4])      # 'bcd' (с 1-го по 3-й включительно)
+print("txt[:3] =", txt[:3])        # 'abc' (с начала до 2-го)
+print("txt[2:] =", txt[2:])        # 'cde' (с 2-го до конца)
+print("txt[::2] =", txt[::2])      # 'ace' (каждый второй)
+print("txt[::-1] =", txt[::-1])    # 'edcba' (разворот строки)
+
+
+# =====================================================
+# ! 3. Длина строки и f-строки (форматирование)
+# =====================================================
 txt = 'abc'
-print(len(txt)) #? 3
+print("Длина len(txt) =", len(txt))  # 3
 
-# ? Другие полезные фичи работы со строками
+name = "Reiko"
+# ! f-строки (Python 3.6+) — вставляем переменные прямо в строку
+greeting = f"She said her name is {name}."               # => "She said her name is Reiko."
+length_msg = f"{name} is {len(name)} characters long."   # => "Reiko is 5 characters long."
+print(greeting)
+print(length_msg)
 
-# ! \"...\" - Позволяет добавлять кавычки между словами
-escapeDoubleQuote_1 = "Hi \"Python\" "
-escapeDoubleQuote_2 = 'Hi "Python"'
-# ! \\ - Позволяет добавить \ (backslash)
-useRealBackslash = "Path: С:\\Users\\mulwo"
-# ! \n - Добавляет новую строку, где 1n - это добав одной строки
-addNewLine = "Message1\n\nMessage2\n"
-# ! \t - Добавляет пробел
-addTab = "Valera\tвыйди\tв\tокно"
+# Можно выполнять выражения внутри фигурных скобок
+print(f"2 + 2 = {2 + 2}")   # 2 + 2 = 4
 
-print(escapeDoubleQuote_1, "or", escapeDoubleQuote_2, useRealBackslash, addNewLine, addTab)
 
+# =====================================================
+# ! 4. Экранирование специальных символов (Escape sequences)
+# =====================================================
+# ? \" или \' — позволяет вставить кавычки внутри строки
+escape_1 = "Hi \"Python\" "      # внутри двойных кавычек — двойные кавычки
+escape_2 = 'Hi "Python"'         # или просто использовать разные кавычки снаружи
+
+# ? \\ — вставить обратный слеш (backslash)
+backslash_path = "Path: C:\\Users\\mulwo"   # один слеш экранируется
+
+# ? \n — перевод строки (newline)
+newline_example = "Message1\n\nMessage2\n"   # два перевода между сообщениями
+
+# ? \t — табуляция (tab)
+tab_example = "Valera\tвыйди\tв\tокно"
+
+print(escape_1, "or", escape_2)
+print(backslash_path)
+print("С новой строкой:", newline_example)
+print("С табуляцией:", tab_example)
+
+
+# =====================================================
+# ! 5. Многострочные строки (Triple quotes)
+# =====================================================
+# ? Тройные кавычки """ или ''' сохраняют все переносы и отступы
+# ? Это удобно для длинных текстов, документации, SQL-запросов
 task_01 = "Your learning path:\n\t - Python Basics\n\t-Data Engineering\n\t - AI"
-# ! """ - Triple quotes - Позволяет писать текст длинные текста
-task_02 = """"
-Your learning path:
-\n\t - Python Basics
-\n\t-Data Engineering
-\n\t - AI
-"""
-task_03 = """"Your learning path:
-\t - Python Basics
-\t-Data Engineering
-\t - AI
-"""
-print(task_01, task_02, task_03)
+
+# ? Правильный вариант с тройными кавычками (без лишних кавычек внутри)
+task_02 = """Your learning path:
+    - Python Basics
+    - Data Engineering
+    - AI"""
+# ? Обратите внимание: отступы внутри строки сохраняются, можно делать аккуратно
+
+# ? Если нужно убрать лишние отступы в коде, используйте textwrap.dedent() Но для простоты оставим как есть
+print("=== task_01 (с \n и \t) ===")
+print(task_01)
+print("\n=== task_02 (тройные кавычки) ===")
+print(task_02)
+
+
+# =====================================================
+# ! 6. Основные методы строк (полезные)
+# =====================================================
+s = "  Hello, World!  "
+
+# ? .upper() / .lower() — регистр
+print("upper:", s.upper())          # "  HELLO, WORLD!  "
+print("lower:", s.lower())          # "  hello, world!  "
+
+# ? .strip() — убирает пробелы (и \n, \t) в начале и конце
+print("strip:", s.strip())          # "Hello, World!"
+
+# ? .replace() — замена подстроки
+print("replace:", s.replace("World", "Python"))   # "  Hello, Python!  "
+
+# ? .split() — разбивает на список по разделителю (по умолчанию пробелы)
+words = s.strip().split(", ")       # ['Hello', 'World!']
+print("split:", words)
+
+# ? .join() — объединяет список в строку через разделитель
+joined = " - ".join(words)          # "Hello - World!"
+print("join:", joined)
+
+#  ? .find() — поиск подстроки (возвращает индекс или -1)
+print("find 'World':", s.find("World"))   # 9 (с учётом пробелов)
+print("find 'Python':", s.find("Python")) # -1
+
+# ? .count() — сколько раз встречается подстрока
+print("count 'l':", s.count("l"))   # 3
+
+# ? .startswith() / .endswith() — проверка начала/конца
+print("startswith '  He':", s.startswith("  He"))   # True
+print("endswith '!  ':", s.endswith("!  "))         # True
+
+
+# =====================================================
+# ! 7. Важные нюансы (для начинающих)
+# =====================================================
+# ! Строки в Python неизменяемы (immutable) — нельзя изменить символ по индексу
+# txt[0] = 'z'  # Ошибка! Но можно создать новую строку
+new_txt = 'z' + txt[1:]   # 'zbcde'
+print("Новая строка:", new_txt)
+
+# ! Для конкатенации большого количества строк лучше использовать .join(),
+# а не + в цикле (это неэффективно)
+parts = ["A", "B", "C"]
+result = "".join(parts)   # 'ABC' — быстро и красиво
+
+# ! Проверка наличия подстроки через 'in'
+print("'World' in s:", "World" in s)   # True
