@@ -4,3 +4,4 @@
 
 Stack technologies:
   - Python
+  - SQlite

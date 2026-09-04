@@ -1,0 +1,1 @@
+- Разница между Virtual Machine и Docker.
